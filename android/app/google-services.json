@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "91464597252",
+    "project_id": "invision-app-dev",
+    "storage_bucket": "invision-app-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:91464597252:android:a8543a3637f9546e3bda51",
+        "android_client_info": {
+          "package_name": "com.invision_app_rn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "91464597252-podaj2m1q2n6pg6pdd2p1og01hqn9ovh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.invision_app_rn",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "91464597252-a6glblmjahqupdruvs84cj2cvu9g2d8s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXKz0aEthXKgHmzNJUQjaAxbGZKP5SCoY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "91464597252-a6glblmjahqupdruvs84cj2cvu9g2d8s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

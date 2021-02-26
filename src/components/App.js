@@ -1,64 +1,75 @@
-import React from 'react';
-import { gql, useQuery } from '@apollo/client';
-import { Text, View, Button } from 'react-native';
+import React, { useEffect } from 'react';
+import { Platform, Text, View, Button, Alert,  } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
+import messaging from '@react-native-firebase/messaging';
 
 import HomeScreen from '../routes/Home';
 import LoginScreen from '../routes/Login';
 import MapScreen from '../routes/Map';
 import ChattingScreen from '../routes/Chatting';
 import ScheduleScreen from '../routes/Schedule';
-
+import SearchScreen from '../routes/Search';
 const Stack = createStackNavigator();
+
+async function requestUserPermission() {
+  const authStatus = await messaging().requestPermission();
+  const enabled =
+    authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+    authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+  if (enabled) {
+    console.log('Authorization status:', authStatus);
+  }
+}
+
+const PushingMessage = () => {
+  if( Platform.OS !== 'ios' ) {
+    useEffect(() => {
+      const unsubscribe = messaging().onMessage(async remoteMessage => {
+        Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+      });
+
+      return unsubscribe;
+    }, []);
+  } else {
+    requestUserPermission()
+  }
+}
+
+const MenuList = ({ navigation, name }) => {
+  console.log(this.props)
+  return  (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>{name} Screen</Text>
+        <Button
+          title= { "Go to " + name }
+          onPress={() => navigation.navigate(`${ name }`)}
+        />
+      </View>   
+  )
+}
 
 const Root = ({navigation})=> {
   return (
     <>
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Home Screen</Text>
-        <Button
-          title="Go to Home"
-          onPress={() => navigation.navigate('Home')}
-        />
-      </View>   
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Login Screen</Text>
-        <Button
-          title="Go to Login"
-          onPress={() => navigation.navigate('Login')}
-        />
-      </View>   
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Map Screen</Text>
-        <Button
-          title="Go to Map"
-          onPress={() => navigation.navigate('Map')}
-        />
-      </View>   
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Chatting Screen</Text>
-        <Button
-          title="Go to Chatting"
-          onPress={() => navigation.navigate('Chatting')}
-        />
-      </View>   
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Schedule Screen</Text>
-        <Button
-          title="Go to Schedule"
-          onPress={() => navigation.navigate('Schedule')}
-        />
-      </View>   
+      <MenuList name="Home" navigation={ navigation }/>
+      <MenuList name="Login" navigation={ navigation }/>
+      <MenuList name="Search" navigation={ navigation }/>
+      <MenuList name="Map" navigation={ navigation }/>
+      <MenuList name="Chatting" navigation={ navigation }/>
+      <MenuList name="Schedule" navigation={ navigation }/>
     </> 
   )
 }
 
 
 const App = () => {
+  PushingMessage()
   return (
-    
+
       <Stack.Navigator>
         <Stack.Screen name="Root" component={Root} />
+        <Stack.Screen name="Search" component={SearchScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Map" component={MapScreen} />
