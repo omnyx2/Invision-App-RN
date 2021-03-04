@@ -1,5 +1,16 @@
-import React, { useState } from 'react';
-import { View, Dimensions, TouchableOpacity, Text, FlatList, StyleSheet, TouchableHighlight, Animated } from 'react-native';
+import React, { useState } from 'react'
+import { 
+  View, 
+  Dimensions, 
+  TouchableOpacity, 
+  Text, 
+  FlatList, 
+  StyleSheet, 
+  TouchableHighlight, 
+  Animated } from 'react-native'
+import { toDoData } from './db'
+import LinearGradient from 'react-native-linear-gradient'
+import InsetShadow from 'react-native-inset-shadow'
 
 const {width,height} = Dimensions.get('window')
 
@@ -10,13 +21,65 @@ const styles = StyleSheet.create({
       left: 36,
       top: 275,
     },
+    headContainer: {
+
+      width: 'auto',
+      height: 245,
+      backgroundColor: '#D4CDDB'
+    },
+    headContainer2: {
+      flexDirection: 'row'
+    },
+    headText: {
+      marginLeft: 30,
+      marginTop: 25,
+    },
+    headCirCle: {
+      width:100,
+      height:100,
+      borderRadius: 50,
+      shadowOffset: {
+        width: 0,
+        height: 1
+      },
+      shadowRadius: 3,
+      shadowOpacity: 1
+    },
+    headCard: {
+      
+      borderRadius: 12,
+      fontSize: 18,
+      backgroundColor: '#000',
+    },
+    headOuterCirCle: {
+      
+      marginLeft: 30,
+      marginTop: 25,
+      
+    },
+    headWarningCard: {
+      width: 230,
+      height: 150,
+      borderRadius: 12,
+      marginTop: 25,
+      marginLeft: 'auto',
+      marginRight:30,
+      backgroundColor: '#FFFFFF',
+    },
+    bodyContainer: {
+      flex: 1,
+      width: 'auto',
+      justifyContent: 'center',
+      
+      backgroundColor: "#DDDDDD",
+    },
     button: {
       alignItems: "center",
       backgroundColor: "#DDDDDD",
       padding: 10
     },
     cardContainer: {
-        display: 'flex',
+        marginLeft:40,
         flexDirection: 'row',
         backgroundColor: '#FFFFFF',
         width: width * (0.8),
@@ -31,8 +94,8 @@ const styles = StyleSheet.create({
       justifyContent: 'center'
     },
     checkBox: {
-        height: 54,
-        width: 54,
+      height: 54,
+      width: 54,
       color: '#FFFFFF',
       backgroundColor: '#DF9EB6',
       justifyContent: 'center'
@@ -46,36 +109,6 @@ const styles = StyleSheet.create({
     }
 })
 
-
-const titleList = [
-    "수술 1시간 전 약먹기",
-    "병원 예약 04.17 4시",
-    "수술 1시간 전 출발하기",
-    "약 한시간전에 먹기",
-]
-let checkList = [
-  1,0,0,0,0
-]
-
-const alarmList = [
-  1,0,1,0,0
-]
-
-
-const CardCell = ({...props})  => {
-  
-  return ( 
-    <View style={styles.container}>
-      
-      <TouchableOpacity
-        style={styles.button}
-        onPress={onPress}
-      >
-        <Text>Press Here</Text>
-      </TouchableOpacity>
-    </View>
-  )
-}
 const ListCard = ({ title, onCheck, onAlarm, isChecked, isAlarmed }) => {
   return (
     <>
@@ -104,22 +137,107 @@ const ListCard = ({ title, onCheck, onAlarm, isChecked, isAlarmed }) => {
   )
 }
 
+const List = ({ data, dataChanger }) => {
+  console.log(data)
+
+  return (
+   <>
+     <View style={styles.headWarningCard}>
+
+     </View>
+   </>
+  )
+}
+
+const HeadCirCle = ({ style }) => {
+  
+  return (
+
+    <LinearGradient
+      start={{x: 0.9, y: 0.1}} end={{x: 0.3, y: 0.7}}
+      colors={['rgba(159, 146, 236, 0.8647)','rgba(216, 149, 179, 0.9)']}
+      style={[styles.headCirCle, style]}
+    >
+
+      <InsetShadow style = {{ borderRadius: 50 }}>
+      </InsetShadow>
+    </LinearGradient>
+
+  )
+}
+const HeadCard = ({ style, data }) => {
+  return (
+    <View style={ [style] }>
+     
+    </View>
+  )
+}
+
+
 
 const Home = () => {
+  const data = toDoData
+  const [cardData, setCardData] = useState(data);
   const [areChecked, setChecked] = useState(false);
   const [areAlarmed, setAlarmed] = useState(false);
   return (
     <>
-      <View>
-        <Text>home</Text>
+      <View style={[styles.headContainer]}>
+          <View style={{ }}>
+            <Text style={[styles.headText]}>현재 진행중인 프로그램: 없음</Text>
+          </View>
+          <View style={styles.headContainer2}>
+            <HeadCirCle style={ styles.headOuterCirCle } />
+            <HeadCard style={ styles.headWarningCard }/>
+          </View>
+          
       </View>
-      <ListCard
-        title="test"
-        onCheck={ () => setChecked(!areChecked) }
-        onAlarm={ () => setAlarmed(!areAlarmed) }
-        isChecked={areChecked}
-        isAlarmed={areAlarmed}
-      />
+      <View style={[styles.bodyContainer]} >
+        {/* <List data={cardData} dataChanger={ ()=> setCardData } ></List> */}
+        <ListCard
+          title="test"
+          onCheck={ () => setChecked(!areChecked) }
+          onAlarm={ () => setAlarmed(!areAlarmed) }
+          isChecked={areChecked}
+          isAlarmed={areAlarmed}
+        />
+        <ListCard
+          title="test"
+          onCheck={ () => setChecked(!areChecked) }
+          onAlarm={ () => setAlarmed(!areAlarmed) }
+          isChecked={areChecked}
+          isAlarmed={areAlarmed}
+        />
+        <ListCard
+          title="test"
+          onCheck={ () => setChecked(!areChecked) }
+          onAlarm={ () => setAlarmed(!areAlarmed) }
+          isChecked={areChecked}
+          isAlarmed={areAlarmed}
+        />
+        <ListCard
+          title="test"
+          onCheck={ () => setChecked(!areChecked) }
+          onAlarm={ () => setAlarmed(!areAlarmed) }
+          isChecked={areChecked}
+          isAlarmed={areAlarmed}
+        />
+        <ListCard
+          title="test"
+          onCheck={ () => setChecked(!areChecked) }
+          onAlarm={ () => setAlarmed(!areAlarmed) }
+          isChecked={areChecked}
+          isAlarmed={areAlarmed}
+        />
+        <ListCard
+          title="test"
+          onCheck={ () => setChecked(!areChecked) }
+          onAlarm={ () => setAlarmed(!areAlarmed) }
+          isChecked={areChecked}
+          isAlarmed={areAlarmed}
+        />
+
+      </View>
     </>
   )
 }
