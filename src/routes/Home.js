@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { 
+  SafeAreaView,
   View, 
   Dimensions, 
   TouchableOpacity, 
@@ -11,20 +12,19 @@ import {
 import { toDoData } from './db'
 import LinearGradient from 'react-native-linear-gradient'
 import InsetShadow from 'react-native-inset-shadow'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+
 
 const {width,height} = Dimensions.get('window')
 
 const styles = StyleSheet.create({
     container: {
-      width: 314,
-      height: 54,
-      left: 36,
-      top: 275,
+      flex: 1,
+      flexDirection: 'column'
     },
     headContainer: {
-
+      flex: 1,
       width: 'auto',
-      height: 245,
       backgroundColor: '#D4CDDB'
     },
     headContainer2: {
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#FFFFFF',
     },
     bodyContainer: {
-      flex: 1,
+      flex: 2,
       width: 'auto',
       justifyContent: 'center',
       
@@ -109,29 +109,59 @@ const styles = StyleSheet.create({
     }
 })
 
+
+const checkbox = ({ currentState }) => {
+  if( currentState ) {
+    return (
+      <View style={{ justifyContent: "center", textAlign : "center"} }>
+        
+      </View>
+    )}
+  else {
+    return (
+      <View >
+        <MaterialCommunityIcons name="checkbox-blank-outline-marked" color={"black"} size={20} />
+      </View>
+    )
+  }
+}
+
+
 const ListCard = ({ title, onCheck, onAlarm, isChecked, isAlarmed }) => {
   return (
     <>
       <View style={styles.cardContainer}>
-          <View style={styles.cardText}  >
-            <Text> { (title !== undefined && ("   " + title)) }</Text>
-          </View>
-          <View >
+        <View style={styles.cardText}  >
+          <Text> { (title !== undefined && ("   " + title)) }</Text>
+        </View>
+        <View style={{ justifyContent: "center", alignContent: "center"} }>
             <TouchableOpacity
               style={styles.checkBox} 
               onPress={onCheck}
             >
-              <Text> { isChecked ? 'checked' : 'un checked'  } </Text>
+              <Text style={{ justifyContent: "center", alignContent: "center"}}> { 
+                (isChecked)
+                  ?
+                   <MaterialCommunityIcons name="checkbox-marked" color={"#FFF"} size={20} />
+                  :<MaterialCommunityIcons name="checkbox-blank" color={"#FFF"} size={20} /> 
+              } 
+              </Text>
             </TouchableOpacity>
         </View>
-        <View >   
-            <TouchableOpacity
-              style={styles.alarmBox}
-              onPress={onAlarm}
-            >
-              <Text> { isAlarmed ? '알람예약' : '알람취소' } </Text>
-            </TouchableOpacity>
-          </View>
+        <View>   
+          <TouchableOpacity
+            style={styles.alarmBox}
+            onPress={onAlarm}
+          >
+            <Text> { isAlarmed
+                ?<Text>
+                <MaterialCommunityIcons name="alarm" color={"#FFF"} size={20}/></Text>
+                :<Text>
+                <MaterialCommunityIcons name="alarm-off" color={"#FFF"} size={20}/></Text>
+              }
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </>
   )
@@ -152,17 +182,17 @@ const List = ({ data, dataChanger }) => {
 const HeadCirCle = ({ style }) => {
   
   return (
-
+    <InsetShadow >
     <LinearGradient
       start={{x: 0.9, y: 0.1}} end={{x: 0.3, y: 0.7}}
       colors={['rgba(159, 146, 236, 0.8647)','rgba(216, 149, 179, 0.9)']}
       style={[styles.headCirCle, style]}
     >
 
-      <InsetShadow style = {{ borderRadius: 50 }}>
-      </InsetShadow>
-    </LinearGradient>
+      
 
+    </LinearGradient>
+    </InsetShadow>
   )
 }
 const HeadCard = ({ style, data }) => {
@@ -182,7 +212,8 @@ const Home = () => {
   const [areAlarmed, setAlarmed] = useState(false);
   return (
     <>
-      <View style={[styles.headContainer]}>
+      <SafeAreaView style={styles.container} >
+        <View style={[styles.headContainer]}>
           <View style={{ }}>
             <Text style={[styles.headText]}>현재 진행중인 프로그램: 없음</Text>
           </View>
@@ -190,54 +221,53 @@ const Home = () => {
             <HeadCirCle style={ styles.headOuterCirCle } />
             <HeadCard style={ styles.headWarningCard }/>
           </View>
-          
-      </View>
-      <View style={[styles.bodyContainer]} >
-        {/* <List data={cardData} dataChanger={ ()=> setCardData } ></List> */}
-        <ListCard
-          title="test"
-          onCheck={ () => setChecked(!areChecked) }
-          onAlarm={ () => setAlarmed(!areAlarmed) }
-          isChecked={areChecked}
-          isAlarmed={areAlarmed}
-        />
-        <ListCard
-          title="test"
-          onCheck={ () => setChecked(!areChecked) }
-          onAlarm={ () => setAlarmed(!areAlarmed) }
-          isChecked={areChecked}
-          isAlarmed={areAlarmed}
-        />
-        <ListCard
-          title="test"
-          onCheck={ () => setChecked(!areChecked) }
-          onAlarm={ () => setAlarmed(!areAlarmed) }
-          isChecked={areChecked}
-          isAlarmed={areAlarmed}
-        />
-        <ListCard
-          title="test"
-          onCheck={ () => setChecked(!areChecked) }
-          onAlarm={ () => setAlarmed(!areAlarmed) }
-          isChecked={areChecked}
-          isAlarmed={areAlarmed}
-        />
-        <ListCard
-          title="test"
-          onCheck={ () => setChecked(!areChecked) }
-          onAlarm={ () => setAlarmed(!areAlarmed) }
-          isChecked={areChecked}
-          isAlarmed={areAlarmed}
-        />
-        <ListCard
-          title="test"
-          onCheck={ () => setChecked(!areChecked) }
-          onAlarm={ () => setAlarmed(!areAlarmed) }
-          isChecked={areChecked}
-          isAlarmed={areAlarmed}
-        />
-
-      </View>
+        </View>
+        <View style={[styles.bodyContainer]} >
+          {/* <List data={cardData} dataChanger={ ()=> setCardData } ></List> */}
+          <ListCard
+            title="test"
+            onCheck={ () => setChecked(!areChecked) }
+            onAlarm={ () => setAlarmed(!areAlarmed) }
+            isChecked={areChecked}
+            isAlarmed={areAlarmed}
+          />
+          <ListCard
+            title="test"
+            onCheck={ () => setChecked(!areChecked) }
+            onAlarm={ () => setAlarmed(!areAlarmed) }
+            isChecked={areChecked}
+            isAlarmed={areAlarmed}
+          />
+          <ListCard
+            title="test"
+            onCheck={ () => setChecked(!areChecked) }
+            onAlarm={ () => setAlarmed(!areAlarmed) }
+            isChecked={areChecked}
+            isAlarmed={areAlarmed}
+          />
+          <ListCard
+            title="test"
+            onCheck={ () => setChecked(!areChecked) }
+            onAlarm={ () => setAlarmed(!areAlarmed) }
+            isChecked={areChecked}
+            isAlarmed={areAlarmed}
+          />
+          <ListCard
+            title="test"
+            onCheck={ () => setChecked(!areChecked) }
+            onAlarm={ () => setAlarmed(!areAlarmed) }
+            isChecked={areChecked}
+            isAlarmed={areAlarmed}
+          />
+          <ListCard
+            title="test"
+            onCheck={ () => setChecked(!areChecked) }
+            onAlarm={ () => setAlarmed(!areAlarmed) }
+            isChecked={areChecked}
+            isAlarmed={areAlarmed}
+          />
+        </View>
+      </SafeAreaView>
     </>
   )
 }

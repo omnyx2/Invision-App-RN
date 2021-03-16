@@ -1,20 +1,22 @@
 import React, { useEffect } from 'react';
 import { Platform, Text, View, Button, Alert,  } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import messaging from '@react-native-firebase/messaging';
 
 import HomeScreen from '../routes/Home';
 import LoginScreen from '../routes/Login';
 import MapScreen from '../routes/Map';
 import ChattingScreen from '../routes/Chatting';
-import ScheduleScreen from '../routes/Schedule';
+import ReportScreen from '../routes/Report';
 import SearchScreen from '../routes/Search';
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 async function requestUserPermission() {
   const authStatus = await messaging().requestPermission();
-  const enabled =
-    authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+  const enabled = authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
     authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
   if (enabled) {
@@ -57,7 +59,7 @@ const Root = ({navigation})=> {
       <MenuList name="Search" navigation={ navigation }/>
       <MenuList name="Map" navigation={ navigation }/>
       <MenuList name="Chatting" navigation={ navigation }/>
-      <MenuList name="Schedule" navigation={ navigation }/>
+      <MenuList name="Report" navigation={ navigation }/>
     </> 
   )
 }
@@ -66,16 +68,25 @@ const Root = ({navigation})=> {
 const App = () => {
   PushingMessage()
   return (
-
-      <Stack.Navigator>
+  <>
+  {/* <Stack.Navigator>
         <Stack.Screen name="Root" component={Root} />
         <Stack.Screen name="Search" component={SearchScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Map" component={MapScreen} />
         <Stack.Screen name="Chatting" component={ChattingScreen} />
-        <Stack.Screen name="Schedule" component={ScheduleScreen} />
-      </Stack.Navigator>
+        <Stack.Screen name="Report" component={ReportScreen} />
+      </Stack.Navigator> */}
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Report" component={ReportScreen} />
+        <Tab.Screen name="Search" component={SearchScreen} />
+        <Tab.Screen name="Login" component={LoginScreen} />
+        <Tab.Screen name="Map" component={MapScreen} />
+        <Tab.Screen name="Chatting" component={ChattingScreen} />
+      </Tab.Navigator>
+  </>
   );
 };
 
