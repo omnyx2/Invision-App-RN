@@ -11,6 +11,7 @@ import MapScreen from '../routes/Map';
 import ChattingScreen from '../routes/Chatting';
 import ReportScreen from '../routes/Report';
 import SearchScreen from '../routes/Search';
+
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 

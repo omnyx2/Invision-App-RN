@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
   yAxisContainer: {
     height: 200,
     marginLeft: 30,
+    marginRight: 30,
     color: "#FFF",
 
   },
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 16, 
     height: 200,
-    marginRight: 30 
+    marginRight: 60 
   },
   xLabelContainaer:{
     marginLeft: 16, 
@@ -61,11 +62,16 @@ const Chart = ({ title, data, style }) =>  {
           data={data}
           contentInset={{ top: 30, left:10, right:10, bottom: 30 }}
           curve={shape.curveNatural}
-          spacingInner={0.6}
+          spacingInner={0.9}
           spacingOuter={0.6}
-          svg={{ fill: 'rgba(134, 65, 244, 0.8)' }}
+          svg={{ fill: 'rgba(256, 256, 256, 0.8)' }}
         >
-          <Grid />
+          <Grid
+            
+            svg={{
+              fill: '#F0F0F0'
+            }}
+          />
         </BarChart>
       </View>
       <View style={styles.xLabelContainaer}>
