@@ -12,6 +12,8 @@ import ChattingScreen from '../routes/Chatting';
 import ReportScreen from '../routes/Report';
 import SearchScreen from '../routes/Search';
 
+
+
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -87,6 +89,7 @@ const App = () => {
         <Tab.Screen name="Map" component={MapScreen} />
         <Tab.Screen name="Chatting" component={ChattingScreen} />
       </Tab.Navigator>
+        
   </>
   );
 };

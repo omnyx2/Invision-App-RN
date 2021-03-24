@@ -8,7 +8,7 @@ const Login = () => {
     <>
       <View>
         <View>
-          <TouchableOpacit style={
+          <TouchableOpacity style={
             {
               
             }
