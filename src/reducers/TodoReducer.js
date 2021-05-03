@@ -1,5 +1,5 @@
 import React, { useReducer, createContext, useContext, useRef } from 'react';
-import { initialTodos } from './db';
+import { initialTodos } from '../db';
 const initialsTodos = [
   {
     id: 1,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { 
   SafeAreaView,
   ScrollView,
@@ -10,31 +10,39 @@ import {
   StyleSheet, 
   TouchableHighlight, 
   Animated } from 'react-native'
-import { toDoData } from '../db'
 import LinearGradient from 'react-native-linear-gradient'
-import InsetShadow from 'react-native-inset-shadow'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { TodoProvider } from '../reducers/TodoReducer'
+import { toDoData, todoStyle } from '../db' 
+import Todos from '../components/Home/ToDoList1'
+import HomeWarningSwriper from '../components/Home/HomeWarningSwiper'
+import { style } from 'd3-selection'
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import Todos from '../components/Home/ToDoList'
+
 const {width,height} = Dimensions.get('window')
 
-import { TodoProvider } from '../Reducer'
+const colorPalatte = {
+  HomeTodoText: '#FFF',
+}
 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
       flexDirection: 'column',
-      backgroundColor: '#D4CDDB'
+      
     },
     headContainer: {
       flex: 3,
       width: 'auto',
-      backgroundColor: '#D4CDDB'
+      backgroundColor: '#D4CDDB',
+      elevation: 4,
     },
     headContainer2: {
-      flexDirection: 'row'
+     flex: 1 
     },
-    headText: {
+    programText: {
+      fontSize: 16,
+      fontWeight: "bold",
       marginLeft: 30,
       marginTop: 25,
     },
@@ -51,8 +59,11 @@ const styles = StyleSheet.create({
     },
     headCard: {
       borderRadius: 12,
-      fontSize: 18,
-      backgroundColor: '#000',
+
+    },
+    headInnerCard: {
+      marginTop: 10,
+      marginLeft: 10,
     },
     headOuterCirCle: {
       
@@ -61,80 +72,84 @@ const styles = StyleSheet.create({
       
     },
     headWarningCard: {
-      width: 230,
+      flex: 1,
       height: 150,
       borderRadius: 12,
       marginTop: 25,
-      marginLeft: 'auto',
+      marginLeft: 30,
       marginRight:30,
       backgroundColor: '#FFFFFF',
     },
     bodyContainer: {
       flex: 6,
       width: 'auto',
-      backgroundColor: "#37333C",
+      backgroundColor: "#FCFCFC",
     },
     button: {
       alignItems: "center",
       backgroundColor: "#DDDDDD",
       padding: 10
     },
+    chatIconBox: {
+      position: 'absolute',
+      justifyContent: 'center',
+      alignItems: 'center',
+
+      bottom: 10,
+      right: 10,
+      width:  50,
+      height: 50,
+      backgroundColor: "blue",
+      borderRadius: 30,
+    }
 
 })
 
-const HeadCirCle = ({ style }) => {
-  
-  return (
-
-      <LinearGradient
-        start={{x: 0.9, y: 0.1}} end={{x: 0.3, y: 0.7}}
-        colors={['rgba(159, 146, 236, 0.8647)','rgba(216, 149, 179, 0.9)']}
-        style={[styles.headCirCle, style]}
-      >
-
-        
-
-      </LinearGradient>
-
-  )
-}
-const HeadCard = ({ style, data }) => {
-  return (
-    <View style={ [style] }>
-     
-    </View>
-  )
-}
-
-
-
-const HomeIn = () => {
+const HomeIn = ({navigation}) => {
   const data = toDoData
-  
+  const [selectedDate, setSelectedDate] = useState(Date()) 
+
+  const moveToChatting = () => navigation.navigate('Chatting')
+
   return (
     <>
       <SafeAreaView style={styles.container} >
         <View style={[styles.headContainer]}>
-          <View style={{ }}>
-            <Text style={[styles.headText]}>현재 진행중인 프로그램: 없음</Text>
-          </View>
+       
+          
           <View style={styles.headContainer2}>
-            <HeadCirCle style={ styles.headOuterCirCle } />
-            <HeadCard style={ styles.headWarningCard }/>
+            {/* <HeadCirCle style={ styles.headOuterCirCle } /> */}
+            <HomeWarningSwriper/>
           </View>
         </View>
         <View style={ styles.bodyContainer } >
-          <Todos />
+          <ScrollView>
+            <View style={{ }}>
+              <Text style={[styles.programText]}>현재 진행중인 프로그램: 사랑니 발치</Text>
+            </View>
+            <Todos todoStyle={todoStyle}>
+              
+            </Todos>
+            </ScrollView>
+            {/* Go To Chatting navigation */}
+            <LinearGradient 
+              colors={['#89B2E9', '#4987DA']}
+              style={styles.chatIconBox}>
+                <TouchableOpacity onPress={ () => moveToChatting() }>
+                  <Ionicons name='chatbubbles' size={24} color={'white'}/>
+                </TouchableOpacity>
+            </LinearGradient>
         </View>
+        
       </SafeAreaView>
     </>
   )
 }
 
-const Home = () => {
+const Home = ({navigation}) => {
   return (
     <TodoProvider>
-      <HomeIn />
+      <HomeIn navigation={navigation}/>
     </TodoProvider>
   )
 }

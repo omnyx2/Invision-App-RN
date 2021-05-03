@@ -6,20 +6,18 @@ import Columns from './Columns';
 
 
 const color = '#FFC77D';
-const data = [
-
-  {"duration": 10, column: 1},
-  {"duration": 5, column: 2},
-  {"duration": 7, column: 3},
-  {"duration": 1, column: 4},
-  {"duration": 4, column: 5},
-  {"duration": 9, column: 6},
-];
-
+const initChartData = [
+  {"duration": 0, column: 1},
+  {"duration": 0, column: 2},
+  {"duration": 0, column: 3},
+  {"duration": 0, column: 4},
+  {"duration": 0, column: 5},
+  {"duration": 0, column: 6},
+]
 
 
-
-export default function BarGraph() {
+export default function BarGraph({ data, highlightColumnIndex}){
+  
   let width = Dimensions.get('screen').width;
   let yAxisHeight = 325;
   let xAxisHeight = 30;
@@ -30,17 +28,32 @@ export default function BarGraph() {
       <YAxis
         height={yAxisHeight}
         width={width} />
-
+      { 
+        data === undefined
+      ? 
       <Columns
-        data={data}
+        data={[]}
         width={width - 10}
         height={barsHeight}
-        color={color} />
+        color={color}
+        highlightColumnIndex={highlightColumnIndex}
+        />
+      :
+      <Columns
+        data={ data }
+        width={width - 10}
+        height={barsHeight}
+        color={color}
+        highlightColumnIndex={highlightColumnIndex}
+        />
+      }
 
       <XAxis
         width={width - 10}
         height={xAxisHeight} />
     </View>
+    
+      
   );
 }
 

@@ -19,7 +19,7 @@ const NavigatedApp = () => {
     </NavigationContainer>
   );
 };
-
+// GraphQL 통신을 위한 ApolloProvier 제공
 const InvisionApp = () => (
   <>
     <ApolloProvider client={client}>
@@ -28,6 +28,7 @@ const InvisionApp = () => (
   </>
 );
 
+// 푸쉬알림을 위한 설정
 const RegistBackgroundHandler = () => {
   if (Platform.OS !== 'ios') {
     // Register background handler

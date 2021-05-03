@@ -6,7 +6,7 @@ import {Surface, Shape, Group,
 
 
 const generateCustomValue = () => {
-  let tooth = [ "좌측상부", "좌측중부", "좌측하부", "우측상부", "우측중부", "우측하부",  ]
+  let tooth = [ "좌측상부", "좌측하부", "중앙상부", "중앙하부", "우측상부", "우측하부",  ]
   let nums = [ "1", "2", "3", "4", "5", "6" ]
   return { tooth , nums  }
 }

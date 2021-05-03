@@ -8,7 +8,7 @@ import {
   StyleSheet, 
  } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import { useTodoDispatch } from '../../Reducer';
+import { useTodoDispatch } from '../../reducers/TodoReducer';
 
 const {width, height} = Dimensions.get('window')
 
@@ -98,7 +98,6 @@ const ListCard = ({ id, title, isChecked, isAlarmed }) => {
               style={styles.checkBox} 
               onPress={() => onCheck(id)}
             >
-              
               <View > 
               { 
                 (isChecked)

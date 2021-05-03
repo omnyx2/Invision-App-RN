@@ -13,7 +13,7 @@ import { scaleLinear } from 'd3-scale';
 
 
 export default function yAxis({ width, height, isNap }) {
-  let yValues = ['14', '12', '10', '8', '6', '4', '2', '0'];
+  let yValues = [ '10', '8', '6', '4', '2', '0'];
   let gridPoints = this.generateGridPoints(yValues.length);
 
   return (

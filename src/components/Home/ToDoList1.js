@@ -12,7 +12,7 @@ import {
   TouchableHighlight, 
   Animated } from 'react-native'
 
-import { useTodoDispatch, useTodoState } from '../../Reducer';
+import { useTodoDispatch, useTodoState } from '../../reducers/TodoReducer';
 import { dataType } from '../../db'
 import { empty } from '@apollo/client';
 
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     typeTitle: {
      fontWeight: 'bold',
      fontSize: 18,
-     color: '#FFF'
+     color: '#000'
     },
 
 })
@@ -67,7 +67,7 @@ const TypeList = ({ type }) => {
   const data = useTodoState();
   const title = dataType[type]
   if((data.filter((data => data.type === type))) == [] ){
-    return <> </> 
+    return <></> 
   }
 
   return (
@@ -84,6 +84,7 @@ const TypeList = ({ type }) => {
             .map( (data) => (
             <ListCard
               id={data.id}
+              key={data.id}
               title={data.text}
               isChecked={data.isChecked}
               isAlarmed={data.isAlarmed}
@@ -99,14 +100,14 @@ const ToDoList = () => {
   
   return (
    
-    <ScrollView 
+    <View 
       contentContainerStyle={[styles.bodyContainer]} >
       <View style={ styles.emptyContainer}></View>
       <TypeList type={0} />
       <TypeList type={1} />
       <TypeList type={2} />   
 
-    </ScrollView>
+    </View>
   )
 }
 

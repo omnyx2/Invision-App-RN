@@ -1,7 +1,9 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, SafeAreaView } from 'react-native';
 import styled from 'styled-components';
 
+import TopCalendar from '../components/TopCalendar'
+import HomeWarningSwriper from '../components/Home/HomeWarningSwiper'
 import SSCD from '../SampleDB/SpecializedSubjectCardsData';
 
 
@@ -10,11 +12,12 @@ import SSCD from '../SampleDB/SpecializedSubjectCardsData';
 
 const Search = () => {
   return (
-    <>
-      <View>
-        <Text> Search </Text>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
+        <TopCalendar/>  
+       
       </View>
-    </>
+    </SafeAreaView>
   )
 }
 
